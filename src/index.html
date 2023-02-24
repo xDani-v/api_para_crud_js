@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+
+  <title>Acceso a Datos</title>
+  <style>
+    body {
+      background-color: #f7f6f6;
+    }
+
+    table thead {
+      background-color: #0a4f70;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+    <button id="btnCrear" type="button" class="btn btn-primary" data-bs-toggle="modal">Crear Renta</button>
+    <button id="btnCrearSocio" type="button" class="btn btn-success" data-bs-toggle="modal">Crear Socio</button>
+    <button id="btnCrearPelicula" type="button" class="btn btn-warning" data-bs-toggle="modal">Crear Pelicula</button>
+    <table id="tablaArticulos" class="table mt-2 table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th>Codigo</th>
+          <th>Socio</th>
+          <th>Pelicula</th>
+          <th>Fecha Alquiler</th>
+          <th>Fecha Entrega</th>
+          <th>Total pago</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="modalArticulo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="exampleModalLabel">Renta de pelicula</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="descripcion" class="col-form-label">Socio:</label>
+              <select class="form-control" id="cod_socio">
+                <option value="null">Seleccione</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="precio" class="col-form-label">Pelicula:</label>
+              <select class="form-control" id="cod_peli">
+                <option value="null">Seleccione</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="stock" class="col-form-label">Fecha Alquiler:</label>
+              <input class="form-control" type="date" placeholder="Fecha alquiler" id="fecha_alq" min="">
+            </div>
+            <div class="mb-3">
+              <label for="stock" class="col-form-label">Fecha Entrega:</label>
+              <input class="form-control" type="date" placeholder="Fecha entrega" id="fecha_entre">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalSocio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="exampleModalLabel">Registro de socio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="frm_socio">
+
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">Nombre socio:</label>
+              <input class="form-control" type="text" id="so_nombre" pattern="[a-zA-Z ]{2,254}">
+            </div>
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">Apellido Socio:</label>
+              <input class="form-control" type="text" id="so_apellido" pattern="[a-zA-Z ]{2,254}">
+            </div>
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">Correo electronico:</label>
+              <input class="form-control" type="text" id="so_correo"
+                pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?">
+            </div>
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">celular Socio:</label>
+              <input class="form-control" type="text" id="so_celular" pattern="[0-9]{10}">
+            </div>
+            <div class="mb-3">
+              <label for="socio_n" class="col-form-label">Tipo de socio</label>
+              <select class="form-control" id="tipo_so">
+                <option value="null">Seleccione</option>
+                <option value="VIP">VIP</option>
+                <option value="NORMAL">Normal</option>
+                <option value="EXCLUSIVO">Exclusivo</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="stock" class="col-form-label">Fecha Nacimiento</label>
+              <input class="form-control" type="date" placeholder="Fecha nacimiento" id="fecha_nac">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="modalPelicula" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="exampleModalLabel">Registro de pelicula</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="frm_pelicula">
+            <div class="mb-3">
+              <label for="nombre" class="col-form-label">Nombre</label>
+              <input class="form-control" type="text" id="pe_nombre">
+            </div>
+            <div class="mb-3">
+              <label for="socio_n" class="col-form-label">Genero</label>
+              <select class="form-control" id="tipo_pe">
+                <option value="null">Seleccione</option>
+                <option value="Accion">Accion</option>
+                <option value="Comedia">Comedia</option>
+                <option value="Terror">Terror</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="costo" class="col-form-label">Costo alquiler</label>
+              <input class="form-control" type="number" step='0.01' id="peli_costo">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- JavaScript -->
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script src="code.js"></script>
+
+  <script>
+    var fecha = new Date(); //Fecha actual
+    var mes = fecha.getMonth() + 1; //obteniendo mes
+    var dia = fecha.getDate(); //obteniendo dia
+    var ano = fecha.getFullYear(); //obteniendo año
+    if (dia < 10)
+      dia = '0' + dia; //agrega cero si el menor de 10
+    if (mes < 10)
+      mes = '0' + mes //agrega cero si el menor de 10
+    var minDate = ano+"-"+mes+"-"+dia;
+    document.getElementById('fecha_alq').setAttribute('min',minDate);
+  </script>
+</body>
+
+</html>

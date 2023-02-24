@@ -2,7 +2,7 @@ const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
 const { json } = require('express')
-const app = express()
+const app = express() //xdd
 
 app.use(express.json())
 app.use(cors())
